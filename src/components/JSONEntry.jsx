@@ -16,11 +16,7 @@ export const JSONEntry = (props) => {
       };
       
     const [jsonSchemaData, setJsonSchemaData ] = useState(JSONSchemaData);
-
-    const prettifyJSON = () => {
-        // setJsonSchemaData(JSON.stringify(JSON.parse(jsonSchemaData),null,'\t'));
-        setJsonSchemaData(jsonSchemaData)
-    };
+    // setJsonSchemaData(JSON.stringify(JSON.parse(jsonSchemaData),null,'\t'));
 
     const updateJSON = event => {
         setJsonSchemaData(JSON.parse(event.target.value));
@@ -30,8 +26,10 @@ export const JSONEntry = (props) => {
     return (
         <div>
             <textarea onChange={updateJSON} value={JSON.stringify(jsonSchemaData)} cols = "150" rows = "30" ></textarea>
-            <br />                
-            <Form schema={jsonSchemaData} />
+            <br />
+            <div className="col-md-offset-3 col-md-6">               
+                <Form schema={jsonSchemaData} />
+            </div> 
         </div>      
     );
 };
