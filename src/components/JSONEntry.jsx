@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
-import {JSONSchemaContext} from '../App';
+import Form from 'react-jsonschema-form';
 
+export const JSONEntry = (props) => {
 
-export const JSONEntry = () => {
-
-    const [jsonSchemaData, setJsonSchemaData ] = useState("Enter JSON");
+    const JSONSchemaData = {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+        },
+        "required": [
+          "name",
+        ]
+      };
+      
+    const [jsonSchemaData, setJsonSchemaData ] = useState(JSONSchemaData);
 
     const prettifyJSON = () => {
         // setJsonSchemaData(JSON.stringify(JSON.parse(jsonSchemaData),null,'\t'));
@@ -12,22 +23,17 @@ export const JSONEntry = () => {
     };
 
     const updateJSON = event => {
-        setJsonSchemaData(event.target.value);
+        setJsonSchemaData(JSON.parse(event.target.value));
+        console.log(JSON.parse(event.target.value))
     };
 
     return (
-        <JSONSchemaContext.Provider value={jsonSchemaData}>
-            <div>
-                <textarea onChange={updateJSON} value={jsonSchemaData} cols = "150" rows = "30" ></textarea>
-                <br />
-                <button onClick={prettifyJSON}>Prettify</button>
-                
-                {/* <button onClick={props.submitJSON(setJsonSchemaData)}>Submit</button> */}
-            </div>   
-        </JSONSchemaContext.Provider>    
+        <div>
+            <textarea onChange={updateJSON} value={JSON.stringify(jsonSchemaData)} cols = "150" rows = "30" ></textarea>
+            <br />                
+            <Form schema={jsonSchemaData} />
+        </div>      
     );
-
-
 };
 
 export default JSONEntry;
