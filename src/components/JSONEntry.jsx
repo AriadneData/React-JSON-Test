@@ -30,9 +30,7 @@ export const JSONEntry = (props) => {
       };
       
     const chkuiSchema = {
-        "ui:field": "myCustomCheckbox",
-        "ui:title": "myCustomCheckbox title",
-        "ui:description": "myCustomCheckbox description"
+        "ui:field": "myCustomCheckbox"
     };
 
     const chkfields = {
@@ -40,12 +38,14 @@ export const JSONEntry = (props) => {
       };
 
 
+    const onSubmit = ({formData}) => console.log("Data submitted: ",  formData.getAll());
+
     return (
         <div>
             <textarea onChange={updateJSON} value={JSON.stringify(jsonSchemaData)} cols = "150" rows = "5" ></textarea>
             <br />
             <div className="col-md-offset-3 col-md-6">               
-                <Form schema={chkschema} uiSchema={chkuiSchema} fields={chkfields}/>
+                <Form schema={dynamicSchema} onSubmit={onSubmit}/>
             </div> 
         </div>      
     );

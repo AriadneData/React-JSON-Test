@@ -12,7 +12,7 @@ export const MyCustomCheckbox = (props) => {
 
   return (
       <div>
-          <input type="checkbox" id="custom"  
+          <input type="checkbox" id="custom" name="mybox" 
               onClick={handleClick} value={chkboxvalue}/>
           <label htmlFor="custom"> Some checkbox label </label>
           <br></br>

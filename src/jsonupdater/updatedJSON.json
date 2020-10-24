@@ -1,0 +1,31 @@
+{
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "address": {
+      "Line1": "Somewhere Rd",
+      "Line2": "In nowhere",
+      "Line3": "Dead Town",
+      "POSTCODE": "DDX11L1"
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "minLength": 10
+    }
+  }
+}
