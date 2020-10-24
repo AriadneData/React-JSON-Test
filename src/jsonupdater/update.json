@@ -1,8 +1,7 @@
-{   
-    "address": {
-        "Line1": "Somewhere Rd",
-        "Line2": "In nowhere",
-        "Line3": "Dead Town",
-        "POSTCODE": "DDX11L1"
-    }    
+{
+"address": {
+    "type": "string",
+    "title": "Address Line 1",
+    "default": "Somewhere Rd"
+  }
 }

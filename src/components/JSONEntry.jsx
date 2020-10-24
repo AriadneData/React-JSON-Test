@@ -10,11 +10,13 @@ import { UISchema } from '../schemas/simple';
 
 import GeoPosition, {MyCustomCheckbox} from '../widgets/YesNoText';
 
-
+import updateJSONData from '../jsonupdater/updatedJSON0.json'
 
 export const JSONEntry = (props) => {
       
-    const [jsonSchemaData, setJsonSchemaData ] = useState(dynamicSchema);
+    // const [jsonSchemaData, setJsonSchemaData ] = useState(dynamicSchema);
+    const [jsonSchemaData, setJsonSchemaData ] = useState(updateJSONData);
+    
     // setJsonSchemaData(JSON.stringify(JSON.parse(jsonSchemaData),null,'\t'));
 
     const updateJSON = event => {
@@ -45,7 +47,7 @@ export const JSONEntry = (props) => {
             <textarea onChange={updateJSON} value={JSON.stringify(jsonSchemaData)} cols = "150" rows = "5" ></textarea>
             <br />
             <div className="col-md-offset-3 col-md-6">               
-                <Form schema={dynamicSchema} onSubmit={onSubmit}/>
+                <Form schema={jsonSchemaData} onSubmit={onSubmit}/>
             </div> 
         </div>      
     );

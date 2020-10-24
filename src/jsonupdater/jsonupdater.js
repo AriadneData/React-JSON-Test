@@ -7,22 +7,22 @@ function getJSONData(filename, path ='./') {
 
 function getConfigvalue(key, path = './', ) {
 
-    configFileRaw = fs.readFileSync('./' + 'config.json');
-    configFile = JSON.parse(configFileRaw);
+    let configFileRaw = fs.readFileSync('./' + 'config.json');
+    let configFile = JSON.parse(configFileRaw);
     return configFile[key]
 };
 
 function renameKey ( obj, oldKey, newKey ) {
 
-    objAsString = JSON.stringify(obj);
+    let objAsString = JSON.stringify(obj);
     objAsString = objAsString.replace( oldKey, newKey);
-    updatedObj = JSON.parse(objAsString);
 
-    return updatedObj;
+    return JSON.parse(objAsString);
   }
 
 function getObjects(obj, key, newVal, newKey) {
     var newValue = newVal;
+    
     var objects = [];
     for (var i in obj) {
         if (!obj.hasOwnProperty(i)) continue;
@@ -33,7 +33,7 @@ function getObjects(obj, key, newVal, newKey) {
         }
     }
 
-    returnObj = renameKey(obj, key, newKey);
+    var returnObj = renameKey(obj, key, newKey);
 
     return returnObj;
 }
@@ -42,14 +42,13 @@ function getObjects(obj, key, newVal, newKey) {
 const coreJSONFile = getConfigvalue(key='coreFileName');
 const updateJSONFile = getConfigvalue(key='updateFiles');
 
-const coreJSON = getJSONData(coreJSONFile);
-
-
+let coreJSON = getJSONData(coreJSONFile);
 let newKeyName = "address";
 
-for (i = 0; i < updateJSONFile.length; i++) {
-    var updateJSON = getJSONData(updateJSONFile[0]);
-    var newJSON = getObjects(coreJSON, "replaceme",  updateJSON[newKeyName], newKeyName);
+for (let i = 0; i < updateJSONFile.length; i++) {  
+    let coreJSONCopy = JSON.parse(JSON.stringify(coreJSON));
+    let updateJSON = getJSONData(updateJSONFile[i]);
+    let newJSON = getObjects(coreJSONCopy, "replaceme",  updateJSON[newKeyName], newKeyName);
     let JSONOutput = JSON.stringify(newJSON, null, 2);
     fs.writeFileSync("updatedJSON" + i + ".json", JSONOutput);
   } 
