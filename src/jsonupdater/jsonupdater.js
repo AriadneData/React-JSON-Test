@@ -1,17 +1,16 @@
 const fs = require("fs");
 
-configFileRaw = fs.readFileSync('./config.json');
-configFile = JSON.parse(configFileRaw);
+function getJSONData(filename, path ='./') {
+    const JSONRaw = fs.readFileSync(path + filename);
+    return JSON.parse(JSONRaw);
+};
 
-coreJSONFile =configFile.coreFileName;
-updateJSONFiles = configFile.updateFiles;
-fileOne = updateJSONFiles[0];
+function getConfigvalue(key, path = './', ) {
 
-const coreJSONRaw = fs.readFileSync("./" + coreJSONFile);
-coreJSON = JSON.parse(coreJSONRaw);
-
-const updateJSONRaw = fs.readFileSync("./" + fileOne);
-updateJSON = JSON.parse(updateJSONRaw);
+    configFileRaw = fs.readFileSync('./' + 'config.json');
+    configFile = JSON.parse(configFileRaw);
+    return configFile[key]
+};
 
 function renameKey ( obj, oldKey, newKey ) {
 
@@ -39,8 +38,18 @@ function getObjects(obj, key, newVal, newKey) {
     return returnObj;
 }
 
-newKeyName = "address";
 
-var newJSON = getObjects(coreJSON, "replaceme",  updateJSON[newKeyName], newKeyName);
-let JSONOutput = JSON.stringify(newJSON, null, 2);
-fs.writeFileSync("updatedJSON.json", JSONOutput);
+const coreJSONFile = getConfigvalue(key='coreFileName');
+const updateJSONFile = getConfigvalue(key='updateFiles');
+
+const coreJSON = getJSONData(coreJSONFile);
+
+
+let newKeyName = "address";
+
+for (i = 0; i < updateJSONFile.length; i++) {
+    var updateJSON = getJSONData(updateJSONFile[0]);
+    var newJSON = getObjects(coreJSON, "replaceme",  updateJSON[newKeyName], newKeyName);
+    let JSONOutput = JSON.stringify(newJSON, null, 2);
+    fs.writeFileSync("updatedJSON" + i + ".json", JSONOutput);
+  } 
